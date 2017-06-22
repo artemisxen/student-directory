@@ -4,9 +4,13 @@ def input_students
   students = []
   name = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
-    name = gets.chomp
+    if name.start_with? 's'
+      students << {name: name, cohort: :november}
+      puts "Now we have #{students.count} students"
+      name = gets.chomp
+    else
+      name = gets.chomp
+    end
    end
    students
 end
