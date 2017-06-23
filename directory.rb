@@ -3,9 +3,8 @@
 def input_students
   puts "- Please enter the names of the students:"
   puts "To finish, just hit return twice."
-  @students = []
   name = gets.gsub!(/\s/, '')
-
+  # while the name is not empty
   while !name.empty? do
     #name starts with "s" and has length < 12
     if name.length < 12 && name.start_with?('s')
@@ -39,6 +38,18 @@ def input_students
 	end
   # students array sorted with the cohort
   @students.sort_by! {|student| student[:cohort] }
+end
+# save students to a file
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  #iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:age], student[:nationality], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 def student_or_students(n)
@@ -78,6 +89,7 @@ def print_menu
   # print the menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -96,6 +108,9 @@ def process(selection)
     when "2"
       # show the students
       show_students
+    when "3"
+      # save the list to the file
+      save_students
     when "9"
       exit # terminate the program
     else
