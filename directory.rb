@@ -2,16 +2,16 @@ def input_students
   puts "- Please enter the names of the students:"
   puts "To finish, just hit return twice."
   students = []
-  name = gets.chomp
+  name = gets.gsub!(/\s/, '')
   while !name.empty? do
     #name starts with "s" and has length < 12
     if name.length < 12 && name.start_with?('s')
       puts "- Please enter the age of the students:"
-      age = gets.chomp
+      age = gets.gsub!(/\s/, '')
       puts "- Please enter the nationality:"
-      nationality = gets.chomp
+      nationality = gets.gsub!(/\s/, '')
       puts "- Please enter your cohort"
-      cohort_input = gets.chomp
+      cohort_input = gets.gsub!(/\s/, '')
       if cohort_input == ''
         cohort = :november
         puts cohort
