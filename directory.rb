@@ -4,6 +4,7 @@ def input_students
   students = []
   name = gets.chomp
   while !name.empty? do
+    #name starts with "s" and has length < 12
     if name.length < 12 && name.start_with?('s')
       puts "- Please enter the age of the students:"
       age = gets.chomp
@@ -27,9 +28,9 @@ def input_students
       puts "- Please enter the names of the students:"
       puts "To finish, just hit return twice"
       name = gets.chomp
-   end
- end
-   students
+    end
+	end
+  students.sort_by! {|student| student[:cohort] }
 end
 
 def print_header
@@ -40,7 +41,7 @@ end
 def print(students)
   i = 0
   while i < students.length
-    puts "#{i + 1}. #{students[i][:name]}, #{students[i][:age]}, #{students[i][:nationality]} (#{students[i][:cohort]} cohort)".center(70)
+    puts "#{i + 1}. #{students[i][:name]}, #{students[i][:age]}, #{students[i][:nationality]} (#{students[i][:cohort]} cohort) ".center(70)
     i += 1
   end
 end
