@@ -33,6 +33,15 @@ def input_students
   students.sort_by! {|student| student[:cohort] }
 end
 
+def student_or_students(n)
+  if
+    n > 1
+    "students"
+  else
+    "student"
+  end
+end
+
 def print_header
   puts " The students of Villains Academy ".center(70, "* ")
   puts "--------------------------------".center(70)
@@ -47,7 +56,7 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(70)
+  puts "Overall, we have #{students.count} great #{student_or_students(students.count)}".center(70)
 end
 
 students = input_students
