@@ -3,6 +3,7 @@ def input_students
   puts "To finish, just hit return twice."
   students = []
   name = gets.gsub!(/\s/, '')
+  
   while !name.empty? do
     #name starts with "s" and has length < 12
     if name.length < 12 && name.start_with?('s')
@@ -30,7 +31,7 @@ def input_students
       name = gets.chomp
     end
 	end
-  students.sort_by! {|student| student[:cohort] }
+     students.sort_by! {|student| student[:cohort] }
 end
 
 def student_or_students(n)
@@ -42,24 +43,30 @@ def student_or_students(n)
   end
 end
 
-def print_header
-  puts " The students of Villains Academy ".center(70, "* ")
-  puts "--------------------------------".center(70)
+def print_header(students)
+  if students != []
+    puts " The students of Villains Academy ".center(70, "* ")
+    puts "--------------------------------".center(70)
+  end
 end
 
 def print(students)
-  i = 0
-  while i < students.length
-    puts "#{i + 1}. #{students[i][:name]}, #{students[i][:age]}, #{students[i][:nationality]} (#{students[i][:cohort]} cohort) ".center(70)
-    i += 1
+  if students != []
+    i = 0
+    while i < students.length
+      puts "#{i + 1}. #{students[i][:name]}, #{students[i][:age]}, #{students[i][:nationality]} (#{students[i][:cohort]} cohort) ".center(70)
+      i += 1
+    end
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great #{student_or_students(students.count)}".center(70)
+  if students != []
+    puts "Overall, we have #{students.count} great #{student_or_students(students.count)}".center(70)
+  end
 end
 
 students = input_students
-print_header
+print_header(students)
 print(students)
 print_footer(students)
