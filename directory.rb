@@ -9,7 +9,16 @@ def input_students
       age = gets.chomp
       puts "- Please enter the nationality:"
       nationality = gets.chomp
-      students << {name: name, age: age, nationality: nationality, cohort: :november}
+      puts "- Please enter your cohort"
+      cohort_input = gets.chomp
+      if cohort_input == ''
+        cohort = :november
+        puts cohort
+      else
+        cohort = cohort_input.to_sym
+        puts cohort
+      end
+      students << {name: name, age: age, nationality: nationality, cohort: cohort}
       puts "Now we have #{students.count} students"
       puts "- Please enter the names of the students:"
       puts "To finish, just hit return twice"
@@ -39,7 +48,7 @@ end
 def print_footer(students)
   puts "Overall, we have #{students.count} great students".center(70)
 end
-#nothing happens untill we call the methods
+
 students = input_students
 print_header
 print(students)
