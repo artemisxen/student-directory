@@ -22,19 +22,24 @@ def process(selection)
   case selection
     when "1"
       # input the students
+      puts "You selected 1. Please input student's data."
       @students = input_students
     when "2"
       # show the students
+      puts "You selected 2. Here is the list of the students."
       show_students
     when "3"
       # save the list to the file
+      puts "You selected 3. Students data have been saved."
       save_students
     when "4"
       load_students
+      puts "You selected 4. Students file has been loaded."
     when "9"
+      puts "You selected 9. Exit of the program."
       exit # terminate the program
     else
-      puts "I don't know what you meant, try again"
+      puts "I don't know what you meant, try again."
   end
 end
 
