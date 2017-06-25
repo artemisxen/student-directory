@@ -45,37 +45,35 @@ end
 def input_students
   puts "- Please enter the names of the students:"
   puts "To finish, just hit return twice."
-  name = STDIN.gets.gsub!(/\s/, '')
+  name = STDIN.gets.chomp
   # while the name is not empty
   while !name.empty? do
     #name starts with "s" and has length < 12
-    if name.length < 12 && name.start_with?('s')
+    if name.length < 12 && name.start_with?('S')
       puts "- Please enter the age of the students:"
       # using gsub instead of chomp to delete the new lines
-      age = STDIN.gets.gsub!(/\s/, '')
+      age = STDIN.gets.chomp
       puts "- Please enter the nationality:"
-      nationality = STDIN.gets.gsub!(/\s/, '')
+      nationality = STDIN.gets.chomp
       puts "- Please enter your cohort"
-      cohort_input = STDIN.gets.gsub!(/\s/, '')
+      cohort_input = STDIN.gets.chomp
       if cohort_input == ''
         cohort = :november
-        puts cohort
       else
         cohort = cohort_input.to_sym
-        puts cohort
       end
       # save users inputs in the students array
       save_at_students(name, age, nationality, cohort.to_sym)
       puts "Now we have #{@students.count} students"
       puts "- Please enter the names of the students:"
       puts "To finish, just hit return twice"
-      name = STDIN.gets.gsub!(/\s/, '')
+      name = STDIN.gets.chomp
     else
       # if the user gives a name not starting with "s", or longer than 12 characters
       # he can give the next name
       puts "- Please enter the names of the students:"
       puts "To finish, just hit return twice"
-      name = STDIN.gets.gsub!(/\s/, '')
+      name = STDIN.gets.chomp
     end
 	end
   # students array sorted with the cohort
