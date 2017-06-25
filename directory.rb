@@ -146,8 +146,9 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from tah command lines
-  return if filename.nil? #return if it is not given
-  if File.exists?(filename)
+  if filename.nil?
+    load_students("students.csv")
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} students from #{filename}"
   else
