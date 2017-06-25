@@ -30,8 +30,8 @@ def process(selection)
       show_students
     when "3"
       # save the list to the file
-      puts "You selected 3. Students data have been saved."
-      save_students
+      puts "You selected 3. Please insert the name of the file."
+      save_students(STDIN.gets.chomp)
     when "4"
       load_students
       puts "You selected 4. Students file has been loaded."
@@ -125,9 +125,9 @@ def print_footer
 end
 
 # save students to a file
-def save_students
+def save_students(filename)
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   #iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:age], student[:nationality], student[:cohort]]
@@ -137,7 +137,7 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   #load students.csv file
   file = File.open(filename, "r")
   file.readlines.each do |line|
@@ -148,7 +148,8 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = ARGV.first # first argument from tah command lines
+  puts "Please insert the name of the file"
+  filename = STDIN.gets.chomp
   if filename.nil?
     load_students("students.csv")
   elsif File.exists?(filename)
