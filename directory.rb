@@ -32,9 +32,11 @@ def process(selection)
       # save the list to the file
       puts "You selected 3. Please insert the name of the file."
       save_students(STDIN.gets.chomp)
+      puts "New students have been saved to file"
     when "4"
-      load_students
-      puts "You selected 4. Students file has been loaded."
+      puts "You selected 4. Please insert the name of the file."
+      load_students(STDIN.gets.chomp)
+      puts "File has been loaded."
     when "9"
       puts "You selected 9. Exit of the program."
       exit # terminate the program
@@ -44,7 +46,7 @@ def process(selection)
 end
 
 def save_at_students(name, age, nationality, cohort)
-  @students << {name: name, age: age, nationality: nationality, cohort: cohort}
+  @students << {name: name, age: age, nationality: nationality, cohort: cohort.to_sym}
 end
 
 def input_students
@@ -127,32 +129,33 @@ end
 # save students to a file
 def save_students(filename)
   # open the file for writing
-  file = File.open(filename, "w")
+  File.open(filename, "w") do |file|
   #iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:age], student[:nationality], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:age], student[:nationality], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def load_students(filename)
-  #load students.csv file
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, age, nationality, cohort = line.chomp.split(',')
-    save_at_students(name, age, nationality, cohort.to_sym)
+  #load file
+  if filename == ""
+    filename = "students.csv"
   end
-  file.close
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, age, nationality, cohort = line.chomp.split(',')
+      save_at_students(name, age, nationality, cohort)
+    end
+  end
 end
 
 def try_load_students
-  puts "Please insert the name of the file"
-  filename = STDIN.gets.chomp
-  if filename.nil?
-    load_students("students.csv")
-  elsif File.exists?(filename)
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} students from #{filename}"
   else
