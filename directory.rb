@@ -129,26 +129,22 @@ end
 
 # save students to a file
 def save_students(filename)
-  # open the file for writing
+  # open the file for writing using CSV Class
   CSV.open(filename, "w") do |csv|
   #iterate over the array of students
     @students.each do |student|
-      #student_data = [student[:name], student[:age], student[:nationality], student[:cohort]]
-      #csv_line = student_data.join(",")
       csv << [student[:name], student[:age], student[:nationality], student[:cohort]]
     end
   end
 end
 
 def load_students(filename)
-  #load file
+  #load file using CSV Class
   if filename == ""
     filename = "students.csv"
   end
-  #CSV.open(filename, "r") do |csv|
-    #csv.readlines.each do |line|
-
     CSV.foreach(filename) do |row|
+      # every row is already an array
       name, age, nationality, cohort = row
       save_at_students(name, age, nationality, cohort)
     end
